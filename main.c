@@ -29,25 +29,19 @@ int main(int argc, char **argv){ // argc Counter Args and argv Array Argv
 	};
 
 	// Conditionals for arguments
+	fread(str, 1, 30, FR);
+	toSum2 = atoi(str); // The actual brightness 
+	
 	if (!strcmp(argv[1], "-u")){
-		fread(str, 1, 30, FR);
-
 		toSum1 = atoi(argv[2]); // The brightness that the user request
-		toSum2 = atoi(str); // The actual brightness 
 		sprintf(product, "%i", toSum1+toSum2);
 
 		fwrite(product, 1, strlen(product), FW);
-		fclose(FR);
-		fclose(FW);
 		printf("\033[32m El brillo actual es: %s \033[0m\n", product);
 		return 0;
 	}
 	else if(!strcmp(argv[1], "-d")){
-		fread(str, 1, 30, FR);
-
 		toSum1 = atoi(argv[2]); // The brightness that the user request
-		toSum2 = atoi(str); // The actual brightness 
-
 		if (toSum1 > toSum2){
 			finalNum = toSum1-toSum2;
 		}else{
@@ -57,18 +51,17 @@ int main(int argc, char **argv){ // argc Counter Args and argv Array Argv
 		sprintf(product, "%i", finalNum);
 
 		fwrite(product, 1, strlen(product), FW);
-		fclose(FR);
-		fclose(FW);
 		printf("\033[31m El brillo actual es %s \033[0m\n", product);
 		return 0;
-	}else if(!strcmp(argv[1], "-c")){
-		fread(str, 1, 30, FR);
-
-		fclose(FR);
-		fclose(FW);
+	}
+	else if(!strcmp(argv[1], "-c")){
 		printf("\033[33m El brillo actual es: %s \033[0m", str);
-		return 0;
+	}
+	else{
+		puts("\033[31m ERROR:\033[0m ¡Argumento desconocido!");
 	};
 
+	fclose(FR);
+	fclose(FW);
 	return 0;
 }
